@@ -1,7 +1,15 @@
+# Branched from https://github.com/jenkinsci/docker-jnlp-slave/
+
 FROM jenkinsci/slave
 # FROM cloudbees/jnlp-slave-with-java-build-tools
 
 USER root
+
+# Install Chrome
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN  echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
+RUN  apt-get update 
+RUN  apt-get --yes install google-chrome-stable
 
 #====================================
 # NODE JS
@@ -10,6 +18,8 @@ USER root
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash \
     && apt-get install -y nodejs 
 
+# Install 7zip
+RUN apt-get --yes install p7zip-full
 
 USER jenkins
 
