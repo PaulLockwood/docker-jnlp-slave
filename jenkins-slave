@@ -29,6 +29,8 @@
 # * JENKINS_SECRET : agent secret, if not set as an argument
 # * JENKINS_AGENT_NAME : agent name, if not set as an argument
 
+# printenv
+
 if [ $# -eq 1 ]; then
 
 	# if `docker run` only has one arguments, we assume user is running alternate command like `bash` to inspect the image
@@ -77,8 +79,16 @@ else
 		esac
 	fi
 
+
+# echo xyzzy
+# printenv
+# echo xyzzy
+# echo $@
+
 	#TODO: Handle the case when the command-line and Environment variable contain different values.
 	#It is fine it blows up for now since it should lead to an error anyway.
 
-	exec java $JAVA_OPTS $JNLP_PROTOCOL_OPTS -cp /usr/share/jenkins/slave.jar hudson.remoting.jnlp.Main -headless $TUNNEL $URL $OPT_JENKINS_SECRET $OPT_JENKINS_AGENT_NAME "$@"
+	# exec java $JAVA_OPTS $JNLP_PROTOCOL_OPTS -cp /usr/share/jenkins/slave.jar hudson.remoting.jnlp.Main -headless $TUNNEL $URL $OPT_JENKINS_SECRET $OPT_JENKINS_AGENT_NAME "$@"
+	exec java -jar /usr/share/jenkins/slave.jar -jnlpUrl ${JENKINS_URL} -secret ${JENKINS_SECRET} -workDir "~/jenkins-slave"
+
 fi
