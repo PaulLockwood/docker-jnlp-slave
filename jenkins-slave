@@ -31,6 +31,11 @@
 
 # printenv
 
+source ~/.profile 
+
+RUN cd ~
+ls -hal
+
 if [ $# -eq 1 ]; then
 
 	# if `docker run` only has one arguments, we assume user is running alternate command like `bash` to inspect the image
@@ -95,6 +100,9 @@ else
 	echo -n "npm version " 
 	npm --version
 	git --version
+
+	echo -n "user is " 
+	whoami
 
 	exec java -jar /usr/share/jenkins/slave.jar -jnlpUrl ${JENKINS_URL} -secret ${JENKINS_SECRET} -workDir "~/jenkins-slave"
 
