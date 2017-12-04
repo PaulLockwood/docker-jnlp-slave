@@ -95,6 +95,8 @@ else
 
 	# exec java $JAVA_OPTS $JNLP_PROTOCOL_OPTS -cp /usr/share/jenkins/slave.jar hudson.remoting.jnlp.Main -headless $TUNNEL $URL $OPT_JENKINS_SECRET $OPT_JENKINS_AGENT_NAME "$@"
 
+	echo "============================================================================"
+
 	echo -n "node version " 
 	node --version
 	echo -n "npm version " 
@@ -104,7 +106,13 @@ else
 	echo -n "user is " 
 	whoami
 
+	# echo $PATH
+	# Enable Global NPM Packages
+	PATH=~/.npm-global/bin:$PATH
+	echo -n "Path is" 
+	echo $PATH
+	echo "============================================================================"
+	
 	exec java -jar /usr/share/jenkins/slave.jar -jnlpUrl ${JENKINS_URL} -secret ${JENKINS_SECRET} -workDir "~/jenkins-slave"
-
 
 fi

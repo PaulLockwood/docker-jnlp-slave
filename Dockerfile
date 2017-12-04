@@ -13,11 +13,12 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash \
 
 USER jenkins
 
-RUN mkdir ~/.npm-global
-
-RUN npm config set prefix '~/.npm-global' \
-    sed -i '$a export PATH=~/.npm-global/bin:$PATH' ~/.profile \
-    source ~/.profile
+# Enable Global NPM Packages
+RUN mkdir ~/.npm-global 
+RUN npm config set prefix '~/.npm-global' 
+# RUN touch ~/.profile
+# RUN sed -i '$a export PATH=~/.npm-global/bin:$PATH' ~/.profile 
+# RUN cat ~/.profile
 
 COPY jenkins-slave /usr/local/bin/jenkins-slave
 
