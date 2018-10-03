@@ -18,6 +18,9 @@ RUN  apt-get --yes install google-chrome-stable
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash \
     && apt-get install -y nodejs 
 
+# Install Tiny-VIM
+RUN apt-get --yes install vim-tiny
+
 # Install 7zip
 RUN apt-get --yes install p7zip-full
 
